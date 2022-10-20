@@ -6,6 +6,7 @@ import com.demo.firstspringboot.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 @Service
@@ -30,7 +31,31 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public Employee findByName(String name) {
+        return employeeRepository.findByName(name);
+    }
+
+    @Override
     public void delete(Employee employee){
         employeeRepository.delete(employee);
     }
+
+    @Override
+    public void deleteById(Integer id){
+        employeeRepository.deleteById(id);
+    }
+
+    @Override
+    public Employee update(Employee employee){
+        Employee e = employeeRepository.findById(employee.getId()).orElse(null);
+        if(e != null){
+            e.setName(employee.getName());
+            e.setEmail(employee.getEmail());
+            e.setPassword(employee.getPassword());
+            e.setSalary(employee.getSalary());
+            return employeeRepository.save(e);
+        }
+        return null;
+    }
+
 }

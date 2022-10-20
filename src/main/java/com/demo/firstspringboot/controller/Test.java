@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 
@@ -21,29 +20,34 @@ public class Test {
         return employeeService.save(employee);
     }
 
-    @RequestMapping("/findall")
+    @GetMapping("/find/all")
     public List<Employee> findAll() {
         return employeeService.findAll();
     }
 
-    @RequestMapping("/find{x}")
+    @GetMapping("/findid/{x}")
     public Employee findById(@PathVariable int x){
         return employeeService.findById(x);
     }
 
-    @PostMapping("/delete")
+    @GetMapping("/findname/{x}")
+    public Employee findByName(@PathVariable String x){
+        return employeeService.findByName(x);
+    }
+
+    @DeleteMapping("/delete")
     public void delete(@RequestBody Employee employee){
         employeeService.delete(employee);
     }
 
-    @GetMapping("/sayhello")
-    public String test(@RequestParam(value = "myName", defaultValue = "Jonathan") String name){
-        return String.format("Hello %s!", name);
+    @DeleteMapping("/delete/{x}")
+    public void deleteById(@PathVariable int x){
+        employeeService.deleteById(x);
     }
 
-    @RequestMapping(value={"hello"}, method = RequestMethod.GET)
-    public String test3(){
-        return "Hello";
+    @PostMapping("/update")
+    public void update(@RequestBody Employee employee){
+        employeeService.update(employee);
     }
 
     @PostMapping("/register")
@@ -52,6 +56,10 @@ public class Test {
         return employee;
     }
 
+    @GetMapping("/sayhello")
+    public String sayHello(@RequestParam(value = "myName", defaultValue = "Jonathan") String name){
+        return String.format("Hello %s!", name);
+    }
     @GetMapping("/{x}")
     public ResponseEntity<String> createDate(@PathVariable int x){
         System.out.println("value passed from url = " + x);

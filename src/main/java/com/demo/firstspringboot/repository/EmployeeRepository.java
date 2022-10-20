@@ -6,4 +6,7 @@ import com.demo.firstspringboot.model.Employee;
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     // <Employee> class name
     // <Integer> type of primary key
+
+    Employee findByName(String name);
+    // this method is from EmployeeRepository Interface
 }
