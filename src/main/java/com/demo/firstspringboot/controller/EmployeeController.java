@@ -1,17 +1,20 @@
 package com.demo.firstspringboot.controller;
 
+import com.demo.firstspringboot.dto.EmployeeRequest;
 import com.demo.firstspringboot.model.Employee;
 import com.demo.firstspringboot.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import java.util.List;
 
 
 @RestController
 @RequestMapping("")
-public class Test {
+public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
 
@@ -49,6 +52,16 @@ public class Test {
     public void update(@RequestBody Employee employee){
         employeeService.update(employee);
     }
+
+    @PostMapping("/save/valid")
+    public EmployeeRequest saveValidation(@RequestBody @Valid EmployeeRequest empReq){
+        // valid annotation will check if the object satisfied the constraints in the EmployeeRequest,
+        // if invalid, it will hand over to the exception handler.
+        return empReq;
+    }
+
+
+
 
     @PostMapping("/register")
     public Employee test2(@RequestBody Employee employee){
