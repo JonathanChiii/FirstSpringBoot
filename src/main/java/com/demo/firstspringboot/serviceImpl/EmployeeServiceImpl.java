@@ -1,5 +1,6 @@
 package com.demo.firstspringboot.serviceImpl;
 
+import com.demo.firstspringboot.exception.EmployeeNotFoundException;
 import com.demo.firstspringboot.model.Employee;
 import com.demo.firstspringboot.repository.EmployeeRepository;
 import com.demo.firstspringboot.service.EmployeeService;
@@ -26,8 +27,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee findById(Integer id){
-        return employeeRepository.findById(id).get();
+    public Employee findById(Integer id) throws EmployeeNotFoundException{
+        if(employeeRepository.findById(id).orElse(null) == null){
+            throw new EmployeeNotFoundException("Id: " + id + " does not meet any of our records.");
+        } else{
+            return employeeRepository.findById(id).get();
+        }
     }
 
     @Override

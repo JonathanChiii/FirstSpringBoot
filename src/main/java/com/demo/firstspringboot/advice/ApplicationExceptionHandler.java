@@ -30,11 +30,9 @@ public class ApplicationExceptionHandler {
     public Map<String, String> handleBusinessException(EmployeeNotFoundException ex) {
         Map<String, String> errorMap = new HashMap<>();
         errorMap.put("errorMessage", ex.getMessage());
-        try{
 
-        }catch(Exception e){
-            System.out.println(e.getMessage() + "cx: Employee not found.");
-        }
+        // This message prints to the console;
+        System.out.println(ex.getMessage());
         return errorMap;
     }
 }

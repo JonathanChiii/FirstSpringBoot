@@ -1,6 +1,7 @@
 package com.demo.firstspringboot.controller;
 
 import com.demo.firstspringboot.dto.EmployeeRequest;
+import com.demo.firstspringboot.exception.EmployeeNotFoundException;
 import com.demo.firstspringboot.model.Employee;
 import com.demo.firstspringboot.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/findid/{x}")
-    public Employee findById(@PathVariable int x){
+    public Employee findById(@PathVariable int x) throws EmployeeNotFoundException {
         return employeeService.findById(x);
     }
 
@@ -57,6 +58,9 @@ public class EmployeeController {
     public EmployeeRequest saveValidation(@RequestBody @Valid EmployeeRequest empReq){
         // valid annotation will check if the object satisfied the constraints in the EmployeeRequest,
         // if invalid, it will hand over to the exception handler.
+        // server side validation
+        // employeeService.save(empReq);
+        //return "@redirect:/save.get";
         return empReq;
     }
 
