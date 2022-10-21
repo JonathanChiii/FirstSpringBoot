@@ -7,12 +7,15 @@ import lombok.AllArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table (name = "employee")
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor(staticName = "build")
+// The constructor created by lombok is default, not public
 public class Employee {
     @Id
     @GeneratedValue

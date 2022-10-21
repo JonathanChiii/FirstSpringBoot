@@ -4,6 +4,7 @@ import com.demo.firstspringboot.dto.EmployeeRequest;
 import com.demo.firstspringboot.exception.EmployeeNotFoundException;
 import com.demo.firstspringboot.model.Employee;
 import com.demo.firstspringboot.service.EmployeeService;
+import com.demo.firstspringboot.service.EmployeeValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,8 @@ import java.util.List;
 public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
+    @Autowired
+    EmployeeValidationService employeeValidationService;
 
     @PostMapping("/save")
     public Employee save(@RequestBody Employee employee) {
@@ -59,13 +62,10 @@ public class EmployeeController {
         // valid annotation will check if the object satisfied the constraints in the EmployeeRequest,
         // if invalid, it will hand over to the exception handler.
         // server side validation
-        // employeeService.save(empReq);
-        //return "@redirect:/save.get";
+        employeeValidationService.save(empReq);
+        //return "@redirect:/save";
         return empReq;
     }
-
-
-
 
     @PostMapping("/register")
     public Employee test2(@RequestBody Employee employee){
