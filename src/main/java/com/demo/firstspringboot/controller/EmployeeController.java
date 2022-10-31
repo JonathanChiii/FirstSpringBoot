@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-
+@CrossOrigin
 @RestController
 @RequestMapping("")
 public class EmployeeController {
@@ -24,6 +24,7 @@ public class EmployeeController {
 
     @PostMapping("/save")
     public Employee save(@RequestBody Employee employee) {
+        System.out.println(employee);
         return employeeService.save(employee);
     }
 
@@ -48,13 +49,15 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/delete/{x}")
-    public void deleteById(@PathVariable int x){
+    public Integer deleteById(@PathVariable int x){
         employeeService.deleteById(x);
+        return x;
     }
 
     @PostMapping("/update")
-    public void update(@RequestBody Employee employee){
+    public Integer update(@RequestBody Employee employee){
         employeeService.update(employee);
+        return employee.getId();
     }
 
     @PostMapping("/save/valid")
